@@ -1,0 +1,235 @@
+name: Pull request
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  static-analysis:
+    name: Static analysis and Jest
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    env:
+      SF_AUTOUPDATE_DISABLE: true
+      SF_DISABLE_TELEMETRY: true
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Detect Salesforce project
+        id: project
+        run: |
+          set -euo pipefail
+          if [ -f package.json ] && [ -d force-app ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "Salesforce project files are not on this branch. Analysis and Jest are skipped."
+          fi
+
+      - name: Install dependencies
+        if: steps.project.outputs.present == 'true'
+        run: npm install --no-audit --no-fund
+
+      - name: Install Salesforce CLI
+        if: steps.project.outputs.present == 'true'
+        run: npm install --global @salesforce/cli@latest
+
+      - name: Install Code Analyzer
+        if: steps.project.outputs.present == 'true'
+        run: sf plugins install code-analyzer@latest
+
+      - name: Analyze Apex, LWC, and Flow
+        id: code-analyzer
+        if: steps.project.outputs.present == 'true'
+        uses: forcedotcom/run-code-analyzer@v2
+        with:
+          run-arguments: >-
+            --workspace force-app
+            --rule-selector pmd:Recommended
+            --rule-selector eslint:Recommended
+            --rule-selector flow:Recommended
+            --view detail
+            --output-file sfca_results.html
+            --output-file sfca_results.json
+          results-artifact-name: code-analyzer-apex-lwc-flow
+          github-token: ${{ github.token }}
+
+      - name: Analyze JavaScript dependencies
+        id: dependency-analyzer
+        if: steps.project.outputs.present == 'true'
+        uses: forcedotcom/run-code-analyzer@v2
+        with:
+          run-arguments: >-
+            --workspace .
+            --rule-selector retire-js:Recommended
+            --view detail
+            --output-file retirejs_results.html
+            --output-file retirejs_results.json
+          results-artifact-name: code-analyzer-dependencies
+          github-token: ${{ github.token }}
+
+      - name: Print Code Analyzer violations
+        if: always() && steps.project.outputs.present == 'true'
+        run: >-
+          node .github/scripts/print-code-analyzer-results.js
+          "Apex, LWC, and Flow" sfca_results.json
+          "Dependencies" retirejs_results.json
+
+      # Advisory for now: the step still reports critical and high violations, but does not fail the job.
+      - name: Check for critical or high violations in changed files (advisory)
+        if: steps.project.outputs.present == 'true'
+        continue-on-error: true
+        env:
+          ANALYZER_EXIT: ${{ steps.code-analyzer.outputs.exit-code }}
+          DEPENDENCY_EXIT: ${{ steps.dependency-analyzer.outputs.exit-code }}
+          ANALYZER_SEV1: ${{ steps.code-analyzer.outputs.num-sev1-violations-in-changed-files }}
+          ANALYZER_SEV2: ${{ steps.code-analyzer.outputs.num-sev2-violations-in-changed-files }}
+          DEPENDENCY_SEV1: ${{ steps.dependency-analyzer.outputs.num-sev1-violations-in-changed-files }}
+          DEPENDENCY_SEV2: ${{ steps.dependency-analyzer.outputs.num-sev2-violations-in-changed-files }}
+        run: |
+          set -euo pipefail
+          echo "Apex, LWC, and Flow exit code: ${ANALYZER_EXIT:-missing}"
+          echo "Critical violations in changed files: ${ANALYZER_SEV1:-missing}"
+          echo "High violations in changed files: ${ANALYZER_SEV2:-missing}"
+          echo "Dependency exit code: ${DEPENDENCY_EXIT:-missing}"
+          echo "Dependency critical violations in changed files: ${DEPENDENCY_SEV1:-missing}"
+          echo "Dependency high violations in changed files: ${DEPENDENCY_SEV2:-missing}"
+          if [ -z "${ANALYZER_EXIT}" ] || [ "${ANALYZER_EXIT}" != "0" ]; then
+            echo "Salesforce Code Analyzer did not complete successfully."
+            exit 1
+          fi
+          if [ -z "${DEPENDENCY_EXIT}" ] || [ "${DEPENDENCY_EXIT}" != "0" ]; then
+            echo "Dependency analysis did not complete successfully."
+            exit 1
+          fi
+          if [ -z "${ANALYZER_SEV1}" ] || [ -z "${ANALYZER_SEV2}" ] || [ -z "${DEPENDENCY_SEV1}" ] || [ -z "${DEPENDENCY_SEV2}" ]; then
+            echo "Changed-file results were not produced, so the quality gate cannot pass."
+            exit 1
+          fi
+          if [ "${ANALYZER_SEV1}" != "0" ] || [ "${ANALYZER_SEV2}" != "0" ] || [ "${DEPENDENCY_SEV1}" != "0" ] || [ "${DEPENDENCY_SEV2}" != "0" ]; then
+            echo "Changed files contain critical or high Code Analyzer violations."
+            exit 1
+          fi
+
+      - name: Detect LWC Jest tests
+        id: jest
+        if: steps.project.outputs.present == 'true'
+        run: |
+          set -euo pipefail
+          if find force-app -type f \( -name '*.test.js' -o -name '*.spec.js' \) | grep -q .; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+            echo "LWC Jest tests found."
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "No LWC Jest tests found. Skipping Jest."
+          fi
+
+      # Advisory for now: a failing Jest test is shown in the log but does not fail the job.
+      - name: Run Jest (advisory)
+        if: steps.project.outputs.present == 'true' && steps.jest.outputs.present == 'true'
+        continue-on-error: true
+        run: npm test
+
+  scratch-org-validation:
+    name: Scratch org validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      SF_AUTOUPDATE_DISABLE: true
+      SF_DISABLE_TELEMETRY: true
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Detect Salesforce project
+        id: project
+        run: |
+          set -euo pipefail
+          if [ -f config/project-scratch-def.json ] && [ -d force-app ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "Scratch org definition or Salesforce source is not on this branch. Validation is skipped."
+          fi
+
+      - name: Set up Node.js
+        if: steps.project.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Salesforce CLI
+        if: steps.project.outputs.present == 'true'
+        run: npm install --global @salesforce/cli@latest
+
+      - name: Authenticate to the Dev Hub
+        if: steps.project.outputs.present == 'true'
+        env:
+          DEVHUB_SFDX_AUTH_URL: ${{ secrets.DEVHUB_SFDX_AUTH_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DEVHUB_SFDX_AUTH_URL}" ]; then
+            echo "::error::GitHub secret DEVHUB_SFDX_AUTH_URL is not set. Add the Sfdx Auth Url of a Dev Hub org so this job can create a scratch org."
+            exit 1
+          fi
+          umask 077
+          printf '%s\n' "$DEVHUB_SFDX_AUTH_URL" > "$RUNNER_TEMP/devhub-auth.txt"
+          sf org login sfdx-url --sfdx-url-file "$RUNNER_TEMP/devhub-auth.txt" --alias DevHub --set-default-dev-hub
+          rm -f "$RUNNER_TEMP/devhub-auth.txt"
+
+      - name: Create scratch org
+        id: scratch
+        if: steps.project.outputs.present == 'true'
+        run: |
+          set -euo pipefail
+          sf org create scratch \
+            --definition-file config/project-scratch-def.json \
+            --alias ci-scratch \
+            --set-default \
+            --duration-days 1 \
+            --wait 30
+
+      - name: Validate project components
+        if: steps.project.outputs.present == 'true'
+        run: |
+          set -euo pipefail
+          sf project deploy start \
+            --dry-run \
+            --source-dir force-app \
+            --target-org ci-scratch \
+            --test-level RunLocalTests \
+            --wait 120
+
+      - name: Delete scratch org
+        if: always() && steps.scratch.outcome == 'success'
+        run: |
+          sf org delete scratch --target-org ci-scratch --no-prompt \
+            || echo "::warning::Could not delete the scratch org. It expires automatically after one day."
