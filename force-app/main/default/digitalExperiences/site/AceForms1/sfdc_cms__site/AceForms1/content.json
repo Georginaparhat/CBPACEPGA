@@ -1,9 +1,0 @@
-{
-  "type" : "sfdc_cms__site",
-  "title" : "AceForms",
-  "contentBody" : {
-    "authenticationType" : "AUTHENTICATED",
-    "geoBotsAllowed" : false
-  },
-  "urlName" : "aceforms"
-}
