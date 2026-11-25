@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>CBPPGA-88. Draft: submit the full package to the ACE Provisioning Team (Pending BI Review).</description>
+    <flowDefinition>ACEF_Flow_Submit_Request</flowDefinition>
+    <label>Submit Request</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

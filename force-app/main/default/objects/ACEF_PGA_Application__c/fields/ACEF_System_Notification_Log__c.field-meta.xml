@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_System_Notification_Log__c</fullName>
+    <description>CBPPGA-88. What the Provision action sent: one line per system team email (system, recipients, time), or that no AES / GCMC email was needed.</description>
+    <label>System Notification Log</label>
+    <length>5000</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

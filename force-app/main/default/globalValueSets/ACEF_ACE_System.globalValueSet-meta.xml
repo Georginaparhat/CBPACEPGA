@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>ACE_Reports</fullName>
+        <default>false</default>
+        <label>ACE Reports</label>
+    </customValue>
+    <customValue>
+        <fullName>ACE_Account</fullName>
+        <default>false</default>
+        <label>ACE Account</label>
+    </customValue>
+    <customValue>
+        <fullName>Manifest_Data</fullName>
+        <default>false</default>
+        <label>Manifest Data</label>
+    </customValue>
+    <customValue>
+        <fullName>AD_CVD</fullName>
+        <default>false</default>
+        <label>AD/CVD</label>
+    </customValue>
+    <customValue>
+        <fullName>GCMC</fullName>
+        <default>false</default>
+        <label>GCMC</label>
+    </customValue>
+    <customValue>
+        <fullName>AES</fullName>
+        <default>false</default>
+        <label>AES</label>
+    </customValue>
+    <description>CBPPGA-87. ACE systems a PGA user can request. Functional areas use these same values.</description>
+    <masterLabel>ACEF ACE System</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

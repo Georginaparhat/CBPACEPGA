@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_Form_7300__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Existing CBP Form 7300 record (read-only reference).</description>
+    <label>Form 7300</label>
+    <referenceTo>ACEF_CBP_Form_7300__c</referenceTo>
+    <relationshipLabel>Package Reviews</relationshipLabel>
+    <relationshipName>Package_Reviews</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

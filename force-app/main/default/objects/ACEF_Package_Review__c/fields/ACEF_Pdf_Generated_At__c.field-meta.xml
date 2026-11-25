@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_Pdf_Generated_At__c</fullName>
+    <description>When the 7300 PDF and SharePoint step ran (mimicked in the demo).</description>
+    <label>7300 PDF Generated At</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

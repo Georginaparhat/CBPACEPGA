@@ -1,0 +1,133 @@
+<template>
+    <div class="ace-portal-shell">
+        <header class="masthead">
+            <div class="masthead__inner">
+                <p class="masthead__agency">U.S. Customs and Border Protection</p>
+                <h1>ACE Portal PGA application</h1>
+                <p class="masthead__lead">{mastheadLead}</p>
+                <nav class="masthead__nav" aria-label="Portal navigation">
+                    <button type="button" class={navHomeClass} onclick={showHome}>Home</button>
+                    <button type="button" class={navRequestsClass} onclick={showRequests}>My Requests</button>
+                    <a class="nav-pill" href={workspacesUrl}>Workspaces</a>
+                </nav>
+            </div>
+        </header>
+
+        <template lwc:if={isHome}>
+            <div class="shell-panel">
+                <section class="home-hero">
+                    <h2>Start or continue your access request</h2>
+                    <p>
+                        Each request includes CBP Form 7300 and, when needed, the PGA package forms. Open a request from
+                        My Requests, or start a new one, then choose a form below.
+                    </p>
+                    <div class="hero-actions">
+                        <lightning-button
+                            variant="brand"
+                            label="Start new request"
+                            onclick={handleStartNew}
+                            disabled={creating}
+                        ></lightning-button>
+                        <template lwc:if={hasActiveRequest}>
+                            <lightning-button variant="neutral" label={continueButtonLabel} onclick={handleContinueActive}></lightning-button>
+                        </template>
+                    </div>
+                </section>
+                <h3 class="section-title">Forms in this program</h3>
+                <ul class="form-card-grid">
+                    <template for:each={formCards} for:item="card">
+                        <li key={card.stepId}>
+                            <button type="button" class="form-card" data-step={card.stepId} onclick={handleFormCard}>
+                                <strong>{card.title}</strong>
+                                <span>{card.summary}</span>
+                            </button>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </template>
+
+        <template lwc:if={isRequests}>
+            <div class="shell-panel">
+                <section class="home-hero">
+                    <h2>My Requests</h2>
+                    <p>Status of your Form 7300 and linked PGA package.</p>
+                    <lightning-button
+                        class="slds-m-top_small"
+                        variant="brand"
+                        label="Start new request"
+                        onclick={handleStartNew}
+                        disabled={creating}
+                    ></lightning-button>
+                </section>
+                <template lwc:if={requestsLoading}>
+                    <lightning-spinner alternative-text="Loading requests" size="medium"></lightning-spinner>
+                </template>
+                <template lwc:elseif={requestsError}>
+                    <p class="err">{requestsError}</p>
+                </template>
+                <template lwc:elseif={requests.length}>
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Request</th>
+                                <th scope="col">7300 status</th>
+                                <th scope="col">ACE Portal</th>
+                                <th scope="col">PGA package</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={requests} for:item="row">
+                                <tr key={row.request7300Id}>
+                                    <td>{row.requestName}</td>
+                                    <td>{row.status7300}</td>
+                                    <td>
+                                        <template lwc:if={row.acePortalAccessRequested}>Yes</template>
+                                        <template lwc:else>No</template>
+                                    </td>
+                                    <td>{row.packageStatus}</td>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="link-btn"
+                                            data-id={row.request7300Id}
+                                            data-name={row.requestName}
+                                            onclick={handleOpenRequest}
+                                        >
+                                            Open
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </template>
+                <template lwc:else>
+                    <p class="empty">You have no requests yet. Start one to begin Form 7300.</p>
+                </template>
+            </div>
+        </template>
+
+        <template lwc:if={isWorkspace}>
+            <div class="requirements workspace-req">
+                <p>
+                    <strong>Required for ACE Portal provisioning:</strong>
+                    Form 7300 (through processing and background investigation), a supervisor-signed access application,
+                    Rules of Behavior, and a witnessed NDA.
+                </p>
+            </div>
+            <p class="shell-panel workspace-back">
+                <button type="button" class="link-btn" onclick={handleBackFromWorkspace}>← Back to home</button>
+                <span> — {activeRequestName}</span>
+            </p>
+            <c-ace-portal-home2
+                key={workspaceKey}
+                request7300-record-id={activeRequestId}
+                package-record-id={activePackageId}
+                initial-form-step={workspaceStep}
+                auto-initialize={autoInitDisabled}
+            ></c-ace-portal-home2>
+        </template>
+    </div>
+</template>

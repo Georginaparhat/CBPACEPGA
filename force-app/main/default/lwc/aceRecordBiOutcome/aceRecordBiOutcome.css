@@ -1,0 +1,23 @@
+.bi {
+    position: relative;
+}
+
+.bi__meta,
+.bi__note {
+    margin: 0 0 0.75rem;
+}
+
+.bi__note {
+    color: #444;
+}
+
+.bi__error {
+    margin-top: 0.75rem;
+    color: #ba0517;
+    font-weight: 600;
+}
+
+.bi__footer {
+    display: flex;
+    justify-content: flex-end;
+}

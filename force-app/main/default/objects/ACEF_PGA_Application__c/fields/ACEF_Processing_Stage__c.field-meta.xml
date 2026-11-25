@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_Processing_Stage__c</fullName>
+    <description>CBPPGA-87. Where the package is in the native ACE provisioning process (after the portal&apos;s Security / PSO step), worked out from the Form 7300 status and BI result and the package forms, readiness, provisioning and ACE Security fields. Drives the ACE Provisioning homepage tiles and list views. Read-only.</description>
+    <externalId>false</externalId>
+    <formula>IF(ACEF_ACE_Security_Verified__c, &quot;Completed&quot;,
+IF(ISPICKVAL(ACEF_Form_7300_Request__r.ACEF_BI_Disposition__c, &quot;Unfavorable&quot;), &quot;Closed - Unfavorable BI&quot;,
+IF(ISPICKVAL(ACEF_Package_Status__c, &quot;Closed&quot;), &quot;Closed&quot;,
+IF(ISPICKVAL(ACEF_Provisioning_Status__c, &quot;Complete&quot;), &quot;Awaiting ACE Security verification&quot;,
+IF(OR(ISPICKVAL(ACEF_Provisioning_Status__c, &quot;Requested&quot;), ISPICKVAL(ACEF_Provisioning_Status__c, &quot;In Progress&quot;)), &quot;In provisioning&quot;,
+IF(ISPICKVAL(ACEF_Readiness_Status__c, &quot;Approved&quot;), &quot;Ready to route&quot;,
+IF(ISPICKVAL(ACEF_Form_7300_Request__r.ACEF_BI_Disposition__c, &quot;Favorable&quot;),
+  IF(AND(ACEF_Form001_User_Complete__c, ACEF_Form001_Supervisor_Complete__c, ACEF_Form002_Complete__c, ACEF_NDA_Uploaded__c),
+    &quot;Ready for readiness review&quot;, &quot;Waiting on package forms&quot;),
+IF(OR(ISPICKVAL(ACEF_Form_7300_Request__r.ACEF_Status__c, &quot;Section 4 Complete&quot;), ISPICKVAL(ACEF_Form_7300_Request__r.ACEF_Status__c, &quot;With 7300 Processing&quot;)),
+  &quot;Awaiting vetting (BI)&quot;,
+&quot;With requester / signers&quot;))))))))</formula>
+    <inlineHelpText>Where the package is in the ACE provisioning process. Calculated automatically.</inlineHelpText>
+    <label>Processing Stage</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0B1F3A</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Stakeholder demo of the ACE PGA User Experience Process Map (one page per actor). Demo only.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>ACE PGA Process Demo</label>
+    <navType>Standard</navType>
+    <tabs>ACEF_Demo_1_Requester</tabs>
+    <tabs>ACEF_Demo_2_Supervisor</tabs>
+    <tabs>ACEF_Demo_3_CBP_Supervisor</tabs>
+    <tabs>ACEF_Demo_Vetting</tabs>
+    <tabs>ACEF_Demo_4_Security</tabs>
+    <tabs>ACEF_Demo_5_Provisioning</tabs>
+    <tabs>ACEF_Demo_6_Tracker</tabs>
+    <tabs>ACEF_Package_Review__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

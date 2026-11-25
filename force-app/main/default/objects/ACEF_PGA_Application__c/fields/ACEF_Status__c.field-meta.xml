@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_Status__c</fullName>
+    <description>CBPPGA-88. ACE PGA provisioning lifecycle status (drives the Salesforce Path and the package actions): Draft, Pending BI Review, Ready for Provisioning, Provisioned, ACE Security Review, Complete; Unfavorable BI Determination stops processing. Set by the actions and automation, not edited by hand. The portal&apos;s own progress stays in Package Status (ACEF_Package_Status__c).</description>
+    <inlineHelpText>Where the package is in the ACE PGA provisioning lifecycle. Changed by the package actions (Submit Request, Record BI Outcome, Provision, Complete Security Review).</inlineHelpText>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Draft</fullName>
+                <default>true</default>
+                <label>Draft</label>
+            </value>
+            <value>
+                <fullName>Pending BI Review</fullName>
+                <default>false</default>
+                <label>Pending BI Review</label>
+            </value>
+            <value>
+                <fullName>Ready for Provisioning</fullName>
+                <default>false</default>
+                <label>Ready for Provisioning</label>
+            </value>
+            <value>
+                <fullName>Provisioned</fullName>
+                <default>false</default>
+                <label>Provisioned</label>
+            </value>
+            <value>
+                <fullName>ACE Security Review</fullName>
+                <default>false</default>
+                <label>ACE Security Review</label>
+            </value>
+            <value>
+                <fullName>Complete</fullName>
+                <default>false</default>
+                <label>Complete</label>
+            </value>
+            <value>
+                <fullName>Unfavorable BI Determination</fullName>
+                <default>false</default>
+                <label>Unfavorable BI Determination</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

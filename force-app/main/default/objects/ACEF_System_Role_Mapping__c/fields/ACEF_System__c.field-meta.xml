@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_System__c</fullName>
+    <description>ACE system (functional area) this role code grants access to.</description>
+    <inlineHelpText>ACE system or functional area granted by this role code.</inlineHelpText>
+    <label>System</label>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>ACEF_ACE_System</valueSetName>
+    </valueSet>
+</CustomField>

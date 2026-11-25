@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_Activation_Date_Required</fullName>
+    <active>true</active>
+    <description>CBPPGA-87 AC4: an activated record must have an Activation Date.</description>
+    <errorConditionFormula>AND(ACEF_Activated__c, ISBLANK(ACEF_Activation_Date__c))</errorConditionFormula>
+    <errorDisplayField>ACEF_Activation_Date__c</errorDisplayField>
+    <errorMessage>Enter an Activation Date before activating this mapping.</errorMessage>
+</ValidationRule>

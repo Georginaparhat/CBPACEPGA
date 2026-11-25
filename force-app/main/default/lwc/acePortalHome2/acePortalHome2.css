@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+.portal {
+  background: var(--canvas, #f3f5f7);
+}
+/* ACE Portal access question and request status panel */
+.notice--error {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid #ba0517;
+  background: #fef1ee;
+  color: #8e030f;
+}
+
+.request-status {
+  margin-bottom: 1.5rem;
+}
+
+.request-status__title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.request-status__stage {
+  margin: 0 0 0.25rem;
+}
+
+.request-status__path {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+}

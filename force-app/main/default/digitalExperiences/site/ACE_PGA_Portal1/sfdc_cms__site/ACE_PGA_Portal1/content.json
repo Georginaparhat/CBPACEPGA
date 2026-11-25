@@ -1,0 +1,9 @@
+{
+  "type" : "sfdc_cms__site",
+  "title" : "ACE PGA Portal",
+  "contentBody" : {
+    "authenticationType" : "AUTHENTICATED_WITH_PUBLIC_ACCESS_ENABLED",
+    "geoBotsAllowed" : false
+  },
+  "urlName" : "ace-pga-portal"
+}

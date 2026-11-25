@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__route",
+  "title" : "Signer",
+  "contentBody" : {
+    "activeViewId" : "signer",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-signer",
+    "urlPrefix" : "signer"
+  },
+  "urlName" : "signer"
+}

@@ -1,0 +1,52 @@
+<template>
+    <lightning-modal-header label="Rules of Behavior"></lightning-modal-header>
+    <lightning-modal-body>
+        <p class="rules-modal__intro">Read the Rules of Behavior, then accept or reject them. You must accept them to continue with your ACE PGA package.</p>
+        <article class="rules-document" aria-label="Rules of Behavior full text">
+                <header class="rules-document__header">
+                    <template for:each={rulesMeta} for:item="line">
+                        <p key={line.key} class="rules-document__meta">{line.text}</p>
+                    </template>
+                    <h3 class="rules-document__title">{rulesTitle}</h3>
+                </header>
+                <template for:each={rulesIntro} for:item="para">
+                    <p key={para.key} class="rules-document__p">{para.text}</p>
+                </template>
+                <template for:each={rulesSections} for:item="section">
+                    <section key={section.key} class="rules-document__section">
+                        <h4 class="rules-document__section-title">{section.title}</h4>
+                        <template lwc:if={section.intro}>
+                            <p class="rules-document__p">{section.intro}</p>
+                        </template>
+                        <ul class="rules-document__list">
+                            <template for:each={section.bullets} for:item="bullet">
+                                <li key={bullet.key} class="rules-document__list-item">{bullet.text}</li>
+                            </template>
+                        </ul>
+                    </section>
+                </template>
+                <section class="rules-document__section rules-document__section--ack">
+                    <h4 class="rules-document__section-title">Acknowledgment statement</h4>
+                    <p class="rules-document__p rules-document__p--emphasis">{acknowledgmentText}</p>
+                </section>
+                <section class="rules-document__section">
+                    <h4 class="rules-document__section-title">Acronyms</h4>
+                    <dl class="rules-document__acronyms">
+                        <template for:each={rulesAcronyms} for:item="row">
+                            <div key={row.key} class="rules-document__acronym-row">
+                                <dt>{row.term}</dt>
+                                <dd>{row.definition}</dd>
+                            </div>
+                        </template>
+                    </dl>
+                </section>
+                <template for:each={rulesFooter} for:item="note">
+                    <p key={note.key} class="rules-document__footer">{note.text}</p>
+                </template>
+            </article>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Reject" variant="destructive-text" onclick={handleReject}></lightning-button>
+        <lightning-button class="slds-m-left_x-small" label="Accept" variant="brand" onclick={handleAccept}></lightning-button>
+    </lightning-modal-footer>
+</template>

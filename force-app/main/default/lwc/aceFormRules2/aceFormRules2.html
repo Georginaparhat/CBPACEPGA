@@ -1,0 +1,95 @@
+<template>
+    <template lwc:if={submitted}>
+        <p class="status status--success" role="status">Rules acknowledged and saved on your PGA package.</p>
+    </template>
+    <template lwc:elseif={hasRecord}>
+        <div
+            class="error-summary"
+            data-id="errorSummary"
+            tabindex="-1"
+            role="alert"
+            aria-live="assertive"
+            hidden
+        >
+            <h3 data-id="errorSummaryTitle">Fix errors before submitting</h3>
+            <ul data-id="errorSummaryList"></ul>
+        </div>
+        <p class="required-note"><span aria-hidden="true">*</span> Required field</p>
+
+        <details class="rules-disclosure">
+            <summary class="rules-disclosure__summary">
+                <span class="rules-disclosure__label">Rules of Behavior — full text</span>
+                <span class="rules-disclosure__hint">Expand to read the official rules before you attest</span>
+            </summary>
+            <article class="rules-document" aria-label="Rules of Behavior full text">
+                <header class="rules-document__header">
+                    <template for:each={rulesMeta} for:item="line">
+                        <p key={line.key} class="rules-document__meta">{line.text}</p>
+                    </template>
+                    <h3 class="rules-document__title">{rulesTitle}</h3>
+                </header>
+                <template for:each={rulesIntro} for:item="para">
+                    <p key={para.key} class="rules-document__p">{para.text}</p>
+                </template>
+                <template for:each={rulesSections} for:item="section">
+                    <section key={section.key} class="rules-document__section">
+                        <h4 class="rules-document__section-title">{section.title}</h4>
+                        <template lwc:if={section.intro}>
+                            <p class="rules-document__p">{section.intro}</p>
+                        </template>
+                        <ul class="rules-document__list">
+                            <template for:each={section.bullets} for:item="bullet">
+                                <li key={bullet.key} class="rules-document__list-item">{bullet.text}</li>
+                            </template>
+                        </ul>
+                    </section>
+                </template>
+                <section class="rules-document__section rules-document__section--ack">
+                    <h4 class="rules-document__section-title">Acknowledgment statement</h4>
+                    <p class="rules-document__p rules-document__p--emphasis">{acknowledgmentText}</p>
+                </section>
+                <section class="rules-document__section">
+                    <h4 class="rules-document__section-title">Acronyms</h4>
+                    <dl class="rules-document__acronyms">
+                        <template for:each={rulesAcronyms} for:item="row">
+                            <div key={row.key} class="rules-document__acronym-row">
+                                <dt>{row.term}</dt>
+                                <dd>{row.definition}</dd>
+                            </div>
+                        </template>
+                    </dl>
+                </section>
+                <template for:each={rulesFooter} for:item="note">
+                    <p key={note.key} class="rules-document__footer">{note.text}</p>
+                </template>
+            </article>
+        </details>
+
+        <fieldset class="form-section">
+            <legend>Attestation</legend>
+            <div class="grid">
+                <div class="span-12 field-slot">
+                    <lightning-input
+                        variant="label-stacked"
+                        type="checkbox"
+                        label="I will use ACE Portal access only for authorized official duties."
+                        required
+                        onchange={handleAttestChange}
+                    ></lightning-input>
+                </div>
+                <div class="span-6 field-slot">
+                    <lightning-input variant="label-stacked" label="Printed name" required onchange={handleNameChange}></lightning-input>
+                </div>
+                <div class="span-4 field-slot">
+                    <lightning-input variant="label-stacked" type="date" label="Date" required onchange={handleDateChange}></lightning-input>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions">
+            <button type="button" class="slds-button slds-button_brand" onclick={handleSubmit}>Acknowledge rules</button>
+        </div>
+    </template>
+    <template lwc:else>
+        <p class="notice notice--info">Answer Yes to "Are you requesting ACE Portal access?" to open your PGA package, then return here.</p>
+    </template>
+</template>

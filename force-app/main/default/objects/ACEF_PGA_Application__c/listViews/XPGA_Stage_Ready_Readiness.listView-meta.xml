@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>XPGA_Stage_Ready_Readiness</fullName>
+    <columns>NAME</columns>
+    <columns>ACEF_Form001_Applicant_Name__c</columns>
+    <columns>ACEF_Agency__c</columns>
+    <columns>ACEF_Processing_Stage__c</columns>
+    <columns>ACEF_Readiness_Status__c</columns>
+    <columns>ACEF_Provisioning_Status__c</columns>
+    <columns>ACEF_Linked_7300_Name__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACEF_Processing_Stage__c</field>
+        <operation>equals</operation>
+        <value>Ready for readiness review</value>
+    </filters>
+    <label>Ready for readiness review</label>
+</ListView>

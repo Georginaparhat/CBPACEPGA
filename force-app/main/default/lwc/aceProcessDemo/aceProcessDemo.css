@@ -1,0 +1,181 @@
+.demo {
+  position: relative;
+}
+.demo__banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.25rem;
+  background: #0b1f3a;
+  color: #fff;
+  font-weight: 600;
+}
+.demo__mimic {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+.demo__path {
+  margin-bottom: 0.75rem;
+}
+.demo__notice {
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.25rem;
+}
+.demo__notice_warn {
+  background: #fef1d0;
+}
+.demo__notice_error {
+  background: #fddde3;
+}
+.demo__notice_ok {
+  background: #d9f2df;
+}
+.demo__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+.demo__grow {
+  flex: 1 1 18rem;
+}
+.demo__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.5rem 1rem;
+  margin: 0.5rem 0 0.75rem;
+}
+.demo__checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background: #f3f3f3;
+  border-radius: 0.25rem;
+}
+.demo__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.demo__h {
+  margin: 1.1rem 0 0.4rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.demo__muted {
+  color: #5c5c5c;
+  margin: 0.25rem 0;
+}
+.demo__empty {
+  padding: 1rem 0;
+}
+.demo__submit {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #dddbda;
+}
+.demo__email {
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.75rem;
+  border-left: 3px solid #1f4e79;
+  background: #f6f9fc;
+}
+.demo__email pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+  margin-top: 0.35rem;
+}
+.demo__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 1.5rem;
+}
+.demo__dl {
+  margin: 0.25rem 0 0.75rem;
+}
+.demo__dlrow {
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.demo__dlrow dt {
+  color: #5c5c5c;
+}
+.demo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.demo__timeline li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}/* cbplogin.gov sign-in (mimicked) */
+.demo__signout {
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 0.25rem;
+  background: transparent;
+  color: #fff;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.login {
+  max-width: 34rem;
+  margin: 1rem auto;
+  border: 1px solid #c9c9c9;
+  border-radius: 0.5rem;
+  background: #fff;
+  overflow: hidden;
+}
+.login__brand {
+  padding: 0.75rem 1.25rem;
+  background: #112e51;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.login__tag {
+  margin-left: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+.login__body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+.login__title {
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.login lightning-input {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+/* Form 7300 Test 2 shortcut (link an existing 7300 instead of filling the form) */
+.demo__shortcut {
+  margin-top: 0.75rem;
+}
+.demo__shortcut summary {
+  cursor: pointer;
+  color: var(--lwc-colorTextLink, #0b5cab);
+}
+
+/* Rules of Behavior rejected */
+.demo__rules-error {
+  margin-top: 0.5rem;
+  color: #ba0517;
+  font-weight: 600;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_Department__c</fullName>
+    <description>CBPPGA-87. Government department. Controls which Agency values can be picked (field dependency).</description>
+    <inlineHelpText>Government department. Pick it first; the Agency list shows only that department&apos;s agencies.</inlineHelpText>
+    <label>Department</label>
+    <required>true</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>ACEF_Department</valueSetName>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,27 @@
+.role-grid {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+}
+.role-grid__head,
+.role-grid__row {
+    display: grid;
+    grid-template-columns: 3rem 3.5rem 4rem minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: center;
+}
+.role-grid__head {
+    font-weight: 700;
+    border-bottom: 1px solid var(--line-soft, #dfe1e2);
+    padding-bottom: 0.25rem;
+}
+.role-grid__port {
+    grid-column: 1 / -1;
+    max-width: 16rem;
+    margin: 0.25rem 0 0.5rem;
+}
+.help {
+    margin: 0 0 0.75rem;
+    color: var(--ink-muted, #565c65);
+    font-size: 0.875rem;
+}

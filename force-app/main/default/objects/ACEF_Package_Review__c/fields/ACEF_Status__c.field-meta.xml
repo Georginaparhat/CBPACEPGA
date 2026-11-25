@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_Status__c</fullName>
+    <description>Where the package is in the process map.</description>
+    <label>Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Draft</fullName>
+                <default>true</default>
+                <label>Draft</label>
+            </value>
+            <value>
+                <fullName>Awaiting Supervisors</fullName>
+                <default>false</default>
+                <label>Awaiting Supervisors</label>
+            </value>
+            <value>
+                <fullName>Vetting</fullName>
+                <default>false</default>
+                <label>Vetting</label>
+            </value>
+            <value>
+                <fullName>Returned for Information</fullName>
+                <default>false</default>
+                <label>Returned for Information</label>
+            </value>
+            <value>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+                <label>Rejected</label>
+            </value>
+            <value>
+                <fullName>Security &amp; Provisioning</fullName>
+                <default>false</default>
+                <label>Security &amp; Provisioning</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Closed - Unfavorable BI</fullName>
+                <default>false</default>
+                <label>Closed - Unfavorable BI</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

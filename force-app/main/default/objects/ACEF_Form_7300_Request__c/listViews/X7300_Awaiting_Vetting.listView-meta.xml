@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X7300_Awaiting_Vetting</fullName>
+    <columns>NAME</columns>
+    <columns>ACEF_First_Name__c</columns>
+    <columns>ACEF_Last_Name__c</columns>
+    <columns>ACEF_Status__c</columns>
+    <columns>ACEF_ACE_Access_Answer__c</columns>
+    <columns>ACEF_BI_Disposition__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACEF_Status__c</field>
+        <operation>equals</operation>
+        <value>Section 4 Complete,With 7300 Processing</value>
+    </filters>
+    <filters>
+        <field>ACEF_BI_Disposition__c</field>
+        <operation>notEqual</operation>
+        <value>Favorable,Unfavorable</value>
+    </filters>
+    <label>Awaiting vetting (BI)</label>
+</ListView>

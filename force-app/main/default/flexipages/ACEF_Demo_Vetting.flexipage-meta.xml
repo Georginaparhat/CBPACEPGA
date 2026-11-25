@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>ACE PGA process demo: Vetting (BI) view of the User Experience Process Map.</description>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>persona</name>
+                    <value>vetting</value>
+                </componentInstanceProperties>
+                <componentName>aceProcessDemo</componentName>
+                <identifier>c_aceProcessDemo</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>main</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Demo · Vetting (BI)</masterLabel>
+    <template>
+        <name>flexipage:defaultAppHomeTemplate</name>
+    </template>
+    <type>AppPage</type>
+</FlexiPage>

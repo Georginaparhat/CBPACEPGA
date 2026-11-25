@@ -1,0 +1,303 @@
+<template>
+  <div class="demo">
+    <div class="demo__banner">
+      <lightning-icon icon-name="utility:lock" size="x-small" variant="inverse"></lightning-icon>
+      <span>{bannerText}</span>
+      <span class="demo__mimic">Demo · cbplogin.gov sign-in and JIT provisioning mimicked</span>
+      <template lwc:if={showSignOut}>
+        <button class="demo__signout" onclick={handleSignOut}>Sign out</button>
+      </template>
+    </div>
+
+    <template lwc:if={loading}>
+      <lightning-spinner alternative-text="Working" size="small"></lightning-spinner>
+    </template>
+
+    <!-- ============================== cbplogin.gov (mimicked) ============================== -->
+    <template lwc:if={showSignIn}>
+      <div class="login">
+        <div class="login__brand">cbplogin.gov <span class="login__tag">mimicked for the demo</span></div>
+        <div class="login__body">
+          <template lwc:if={isStageEmail}>
+            <h2 class="login__title">Sign in</h2>
+            <p class="demo__muted">{signInPrompt}</p>
+            <lightning-input type="email" label="Email address" value={signInEmail} onchange={handleSignInEmail}></lightning-input>
+            <div class="demo__actions">
+              <lightning-button variant="brand" label="Continue" onclick={handleSignInContinue}></lightning-button>
+              <lightning-button variant="base" label="Reset this demo account" onclick={handleResetIdentity}></lightning-button>
+            </div>
+          </template>
+
+          <template lwc:if={isStageRegister}>
+            <h2 class="login__title">Create your cbplogin.gov account</h2>
+            <p class="demo__notice demo__notice_warn">Has an account? <strong>No</strong>: no cbplogin.gov account was found for {signInEmail}. Register to continue (first-access registration).</p>
+            <lightning-input label="Full name" value={signInName} onchange={handleSignInName} required></lightning-input>
+            <lightning-input type="email" label="Email address" value={signInEmail} disabled></lightning-input>
+            <lightning-input type="checkbox" label="I verified my email address and set up multi-factor authentication" checked={mfaDone} onchange={handleMfa}></lightning-input>
+            <div class="demo__actions">
+              <lightning-button variant="brand" label="Register via cbplogin.gov" onclick={handleRegister}></lightning-button>
+              <lightning-button variant="base" label="Back" onclick={handleBackToEmail}></lightning-button>
+            </div>
+          </template>
+
+          <template lwc:if={isStageProvisioned}>
+            <h2 class="login__title">Welcome, first sign-in complete</h2>
+            <p class="demo__notice demo__notice_ok">Registered via cbplogin.gov. On this first sign-in, Salesforce JIT provisioning created your portal user from the cbplogin.gov assertion.</p>
+            <dl class="demo__dl">
+              <template for:each={jitDetails} for:item="d">
+                <div key={d.label} class="demo__dlrow">
+                  <dt>{d.label}</dt>
+                  <dd>{d.value}</dd>
+                </div>
+              </template>
+            </dl>
+            <div class="demo__actions">
+              <lightning-button variant="brand" label={continueLabel} onclick={handleEnterWorkspace}></lightning-button>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <template lwc:if={showContent}>
+    <!-- Process map path -->
+    <template lwc:if={activeReview}>
+      <div class="demo__path">
+        <lightning-progress-indicator current-step={currentPathStep} type="path" variant="base" has-error={pathHasError}>
+          <template for:each={pathSteps} for:item="p">
+            <lightning-progress-step key={p.value} label={p.label} value={p.value}></lightning-progress-step>
+          </template>
+        </lightning-progress-indicator>
+      </div>
+    </template>
+    <template lwc:if={statusBanner}>
+      <p class={statusBanner.css}>{statusBanner.text}</p>
+    </template>
+
+    <!-- ============================== REQUESTER ============================== -->
+    <template lwc:if={isRequester}>
+      <lightning-card title="Requester Workspace" icon-name="standard:person_account">
+        <div class="slds-p-horizontal_medium">
+          <div class="demo__row">
+            <lightning-combobox class="demo__grow" label="Package" options={reviewOptions} value={reviewId} onchange={handleReviewChange} placeholder="Start a new package"></lightning-combobox>
+            <lightning-input label="Requester name" value={newName} onchange={handleNewName}></lightning-input>
+            <lightning-input label="Requester email" type="email" value={newEmail} onchange={handleNewEmail}></lightning-input>
+            <lightning-button class="demo__align" label="Start new package" icon-name="utility:add" onclick={handleStart}></lightning-button>
+          </div>
+
+          <template lwc:if={review}>
+            <div class="demo__checklist">
+              <template for:each={checklist} for:item="c">
+                <span key={c.key} class="demo__check">
+                  <lightning-icon icon-name={c.icon} size="x-small" variant={c.variant}></lightning-icon>
+                  {c.label}
+                </span>
+              </template>
+            </div>
+
+            <!-- 1. Rules of Behavior -->
+            <h3 class="demo__h">1 · Rules of Behavior</h3>
+            <p class="demo__muted">I will use ACE only for official duties, protect sensitive data, and report security incidents.</p>
+            <lightning-button label={rulesButtonLabel} variant="brand-outline" onclick={handleAcceptRules} disabled={rulesButtonDisabled}></lightning-button>
+            <template lwc:if={rulesError}>
+              <p class="demo__rules-error" role="alert">{rulesError}</p>
+            </template>
+
+            <!-- 2. ACE PGA Application -->
+            <h3 class="demo__h">2 · ACE PGA Application</h3>
+            <c-ace-pga-system-picker value={pickerValue} disabled={locked} onchange={handlePickerChange}></c-ace-pga-system-picker>
+            <div class="demo__grid">
+              <lightning-input label="Phone" type="tel" data-field="phone" value={app.phone} onchange={handleAppField} disabled={locked}></lightning-input>
+              <lightning-input label="Position title" data-field="positionTitle" value={app.positionTitle} onchange={handleAppField} disabled={locked}></lightning-input>
+              <lightning-input label="Supervisor email" type="email" data-field="supervisorEmail" value={app.supervisorEmail} onchange={handleAppField} disabled={locked}></lightning-input>
+              <lightning-input label="CBP supervisor email (optional)" type="email" data-field="cbpSupervisorEmail" value={app.cbpSupervisorEmail} onchange={handleAppField} disabled={locked}></lightning-input>
+              <lightning-input label="Government employee" type="checkbox" data-field="govEmployee" checked={app.govEmployee} onchange={handleAppField} disabled={locked}></lightning-input>
+            </div>
+            <lightning-button label="Save application" variant="brand-outline" onclick={handleSaveApplication} disabled={locked}></lightning-button>
+
+            <!-- 3. CBP Form 7300 -->
+            <h3 class="demo__h">3 · CBP Form 7300</h3>
+            <p class="demo__muted">{form7300Label}</p>
+            <template lwc:if={showForm7300}>
+              <!-- Form 7300 Test 2 (cbpForm73002): the current 7300 web form with its progress card. -->
+              <c-cbp-form73002 saved-data={form7300Prefill} oncertificationcomplete={handleForm7300Submitted}></c-cbp-form73002>
+              <details class="demo__shortcut">
+                <summary>Demo shortcut: link an existing Form 7300 instead</summary>
+                <div class="demo__row">
+                  <lightning-combobox class="demo__grow" label="Existing Form 7300 record (optional, read-only link)" options={form7300Options} value={form7300Id} onchange={handleForm7300Change} disabled={locked} placeholder="Use the demo 7300"></lightning-combobox>
+                  <lightning-button class="demo__align" label="Mark Form 7300 complete" variant="brand-outline" onclick={handleComplete7300} disabled={locked}></lightning-button>
+                </div>
+              </details>
+            </template>
+
+            <!-- 4. NDA upload -->
+            <h3 class="demo__h">4 · NDA PDF upload</h3>
+            <lightning-file-upload label="Upload the signed NDA" accept=".pdf" record-id={reviewId} onuploadfinished={handleUploadFinished} disabled={locked}></lightning-file-upload>
+
+            <!-- Submit -->
+            <div class="demo__submit">
+              <p class="demo__muted">{missingText}</p>
+              <lightning-button label="Submit full package" variant="brand" icon-name="utility:send" onclick={handleSubmit} disabled={submitDisabled}></lightning-button>
+            </div>
+
+            <template lwc:if={hasCallToAction}>
+              <h3 class="demo__h">Call-to-action emails (prefilled)</h3>
+              <template for:each={callToActionEmails} for:item="e">
+                <div key={e.key} class="demo__email">
+                  <p><strong>To:</strong> {e.toAddress}</p>
+                  <p><strong>Subject:</strong> {e.subject}</p>
+                  <pre>{e.body}</pre>
+                  <template lwc:if={e.hasLink}>
+                    <lightning-button variant="brand" icon-name="utility:new_window" label={e.linkLabel} data-email={e.toAddress} data-step={e.stepId} data-type={e.stepType} onclick={handleOpenLink}></lightning-button>
+                  </template>
+                </div>
+              </template>
+            </template>
+          </template>
+        </div>
+      </lightning-card>
+    </template>
+
+    <!-- ============================== WORKSPACES ============================== -->
+    <template lwc:if={isWorkspace}>
+      <lightning-card title={personaInfo.role} icon-name="standard:approval">
+        <lightning-button slot="actions" label="Refresh" icon-name="utility:refresh" onclick={handleRefresh}></lightning-button>
+        <div class="slds-p-horizontal_medium">
+          <template lwc:if={hasSteps}>
+            <lightning-combobox label="Waiting for me" options={stepOptions} value={selectedStepId} onchange={handleStepChange}></lightning-combobox>
+          </template>
+          <template lwc:else>
+            <p class="demo__muted demo__empty">{noStepsText}</p>
+          </template>
+
+          <template lwc:if={activeState}>
+            <div class="demo__cols">
+              <div class="demo__col">
+                <h3 class="demo__h">Package under review (read-only)</h3>
+                <dl class="demo__dl">
+                  <template for:each={summary} for:item="s">
+                    <div key={s.label} class="demo__dlrow">
+                      <dt>{s.label}</dt>
+                      <dd>{s.value}</dd>
+                    </div>
+                  </template>
+                </dl>
+                <template lwc:if={pdfUrl}>
+                  <a href={pdfUrl} target="_blank">Open the official CBP Form 7300 PDF</a>
+                </template>
+                <template lwc:if={myEmail}>
+                  <h3 class="demo__h">The email I received</h3>
+                  <div class="demo__email">
+                    <p><strong>Subject:</strong> {myEmail.subject}</p>
+                    <pre>{myEmail.body}</pre>
+                  </div>
+                </template>
+              </div>
+
+              <div class="demo__col">
+                <!-- Supervisor / CBP supervisor -->
+                <template lwc:if={isApprover}>
+                  <h3 class="demo__h">My section and decision</h3>
+                  <lightning-textarea label={sectionLabel} data-field="section" value={decision.section} onchange={handleDecisionField}></lightning-textarea>
+                  <lightning-input label="Type your full name to sign" data-field="signedName" value={decision.signedName} onchange={handleDecisionField}></lightning-input>
+                  <lightning-input type="checkbox" label="I attest that the information I reviewed is accurate and that this access is required for official duties." data-field="attested" checked={decision.attested} onchange={handleDecisionField}></lightning-input>
+                  <lightning-textarea label="Comments (required to return or reject)" data-field="comments" value={decision.comments} onchange={handleDecisionField}></lightning-textarea>
+                  <div class="demo__actions">
+                    <lightning-button label="Approve and sign" variant="success" data-decision="Approved" onclick={handleDecision}></lightning-button>
+                    <lightning-button label="Return for more info" variant="brand-outline" data-decision="Returned" onclick={handleDecision}></lightning-button>
+                    <lightning-button label="Reject" variant="destructive-text" data-decision="Rejected" onclick={handleDecision}></lightning-button>
+                  </div>
+                </template>
+
+                <!-- Vetting (BI) -->
+                <template lwc:if={isVetting}>
+                  <h3 class="demo__h">Vetting: background investigation (BI) outcome</h3>
+                  <p class="demo__muted">Favorable moves the package to Security and Provisioning, where the provisioning action becomes available. Unfavorable closes the package and the process ends.</p>
+                  <lightning-combobox label="BI outcome" options={biOutcomeOptions} data-field="outcome" value={vetting.outcome} onchange={handleVettingField} required></lightning-combobox>
+                  <lightning-input label="Vetting officer (type your name)" data-field="vetterName" value={vetting.vetterName} onchange={handleVettingField} required></lightning-input>
+                  <lightning-textarea label="Notes" data-field="notes" value={vetting.notes} onchange={handleVettingField} required={vettingNeedsNote}></lightning-textarea>
+                  <div class="demo__actions">
+                    <lightning-button label="Record BI outcome" variant="brand" onclick={handleVettingSubmit}></lightning-button>
+                  </div>
+                </template>
+
+                <!-- Security -->
+                <template lwc:if={isSecurity}>
+                  <h3 class="demo__h">Security section of CBP Form 7300</h3>
+                  <lightning-combobox label="Investigation type" options={investigationTypes} data-field="investigationType" value={security.investigationType} onchange={handleSecurityField}></lightning-combobox>
+                  <lightning-combobox label="Investigation status" options={investigationStatuses} data-field="investigationStatus" value={security.investigationStatus} onchange={handleSecurityField}></lightning-combobox>
+                  <lightning-input label="Security officer (type your name to sign)" data-field="officerName" value={security.officerName} onchange={handleSecurityField}></lightning-input>
+                  <lightning-textarea label="Notes" data-field="notes" value={security.notes} onchange={handleSecurityField}></lightning-textarea>
+                  <lightning-input type="checkbox" label="I certify the security information is accurate." data-field="attested" checked={security.attested} onchange={handleSecurityField}></lightning-input>
+                  <p class="demo__muted">On submit: save the 7300 record, generate the 7300 PDF and create the SharePoint list item (existing service; mimicked in the demo).</p>
+                  <div class="demo__actions">
+                    <lightning-button label="Submit security section" variant="brand" onclick={handleSecuritySubmit}></lightning-button>
+                  </div>
+                </template>
+
+                <!-- Provisioning -->
+                <template lwc:if={isProvisioning}>
+                  <h3 class="demo__h">Received: ACE PGA Application, NDA and Rules of Behavior</h3>
+                  <template lwc:if={provisioningEmail}>
+                    <p class="demo__muted">GCMC or AES requested, so a prefilled email goes to the support mailbox.</p>
+                    <div class="demo__email">
+                      <p><strong>To:</strong> {provisioningEmail.toAddress}</p>
+                      <p><strong>Subject:</strong> {provisioningEmail.subject}</p>
+                      <pre>{provisioningEmail.body}</pre>
+                    </div>
+                  </template>
+                  <template lwc:if={noProvisioningEmail}>
+                    <p class="demo__muted">No GCMC or AES requested, so no manual email is needed.</p>
+                  </template>
+                  <p class="demo__muted">Always, in parallel: Salesforce calls the ACE Portal service to provision the user and apply the roles from the application (mimicked in the demo).</p>
+                  <div class="demo__actions">
+                    <lightning-button label="Send email and run automated provisioning" variant="brand" onclick={handleProvision}></lightning-button>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </lightning-card>
+    </template>
+
+    <!-- ============================== OVERVIEW ============================== -->
+    <template lwc:if={isOverview}>
+      <lightning-card title="Package tracker" icon-name="standard:timesheet">
+        <lightning-button slot="actions" label="Refresh" icon-name="utility:refresh" onclick={handleRefresh}></lightning-button>
+        <div class="slds-p-horizontal_medium">
+          <lightning-combobox label="Package" options={reviewOptions} value={reviewId} onchange={handleReviewChange}></lightning-combobox>
+          <template lwc:if={activeState}>
+            <dl class="demo__dl">
+              <template for:each={summary} for:item="s">
+                <div key={s.label} class="demo__dlrow">
+                  <dt>{s.label}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              </template>
+            </dl>
+          </template>
+        </div>
+      </lightning-card>
+    </template>
+
+    <!-- Timeline (all views) -->
+    <template lwc:if={hasTimeline}>
+      <lightning-card title="Routing and decisions" icon-name="standard:flow">
+        <ul class="slds-p-horizontal_medium demo__timeline">
+          <template for:each={timeline} for:item="t">
+            <li key={t.id}>
+              <span class={t.badge}>{t.status}</span>
+              <strong> {t.title}</strong>
+              <span class="demo__muted"> · {t.who}</span>
+              <template lwc:if={t.detail}>
+                <div class="demo__muted">{t.detail}</div>
+              </template>
+            </li>
+          </template>
+        </ul>
+      </lightning-card>
+    </template>
+    </template>
+  </div>
+</template>

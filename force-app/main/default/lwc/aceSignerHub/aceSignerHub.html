@@ -1,0 +1,39 @@
+<template>
+    <article class="signer-hub">
+        <header>
+            <h1>Signer review</h1>
+            <p>Complete your assigned sections on this page.</p>
+        </header>
+        <template lwc:if={error}>
+            <p class="error">{error}</p>
+        </template>
+        <template lwc:if={blocked}>
+            <p class="warn">{context.message}</p>
+            <c-ace-experience-entry></c-ace-experience-entry>
+        </template>
+        <template lwc:if={showAgencySupervisor7300}>
+            <section class="panel">
+                <h2>CBP Form 7300 — Section 2</h2>
+                <c-ace-form73002 record-id={request7300Id} section-mode="supervisor"></c-ace-form73002>
+            </section>
+        </template>
+        <template lwc:if={showForm001Supervisor}>
+            <section class="panel">
+                <h2>PGA access application — Supervisor</h2>
+                <c-ace-form-access2 record-id={packageId} mode="supervisor"></c-ace-form-access2>
+            </section>
+        </template>
+        <template lwc:if={showCbpSupervisor7300}>
+            <section class="panel">
+                <h2>CBP Form 7300 — Section 3</h2>
+                <c-ace-form73002 record-id={request7300Id} section-mode="cbp"></c-ace-form73002>
+            </section>
+        </template>
+        <template lwc:if={showAgencySection4}>
+            <section class="panel">
+                <h2>CBP Form 7300 — Section 4</h2>
+                <c-ace-form73002 record-id={request7300Id} section-mode="section4"></c-ace-form73002>
+            </section>
+        </template>
+    </article>
+</template>

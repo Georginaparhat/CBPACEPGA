@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_NDA_Uploaded__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>An NDA PDF is attached to this review.</description>
+    <label>NDA Uploaded</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

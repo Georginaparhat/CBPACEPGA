@@ -1,0 +1,123 @@
+<template>
+    <template lwc:if={submitted}>
+        <p class="status status--success" role="status">Application saved on your PGA package record.</p>
+    </template>
+    <template lwc:elseif={hasRecord}>
+        <lightning-record-edit-form object-api-name="ACEF_PGA_Application__c" record-id={recordId} onsubmit={handleSubmit}>
+            <div class="error-summary" data-id="errorSummary" tabindex="-1" role="alert" aria-live="assertive" hidden>
+                <h3 data-id="errorSummaryTitle">Fix errors before submitting</h3>
+                <ul data-id="errorSummaryList"></ul>
+            </div>
+            <p class="required-note"><span aria-hidden="true">*</span> Required field</p>
+
+            <template lwc:if={isSupervisor}>
+                <fieldset class="form-section">
+                    <legend>Authorization / recertification</legend>
+                    <div class="grid">
+                        <div class="span-12 field-slot">
+                            <lightning-input-field field-name="ACEF_Form001_Supervisor_Name_Title__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field field-name="ACEF_Form001_Supervisor_Phone__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field field-name="ACEF_Form001_Supervisor_Email__c" required></lightning-input-field>
+                        </div>
+                    </div>
+                </fieldset>
+            </template>
+            <template lwc:else>
+                <div class="form-section">
+                    <c-ace-pga-system-picker
+                        value={pickerValue}
+                        onchange={handlePickerChange}
+                    ></c-ace-pga-system-picker>
+                </div>
+
+                <fieldset class="form-section">
+                    <legend>Application type</legend>
+                    <div class="grid">
+                        <div class="span-6 field-slot">
+                            <label class="inline-check"><span class="inline-check__label">{checkboxLabels.createNewUser}</span><input type="checkbox" class="inline-check__box" data-field="ACEF_Form001_Create_New_User__c" checked={checkboxValues.createNewUser} onchange={handleInlineCheck} /></label>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field variant="label-stacked" field-name="ACEF_Form001_Annual_Recert__c"></lightning-input-field>
+                        </div>
+                        <div class="span-3 field-slot">
+                            <label class="inline-check"><span class="inline-check__label">{checkboxLabels.roleAdd}</span><input type="checkbox" class="inline-check__box" data-field="ACEF_Form001_Role_Add__c" checked={checkboxValues.roleAdd} onchange={handleInlineCheck} /></label>
+                        </div>
+                        <div class="span-3 field-slot">
+                            <label class="inline-check"><span class="inline-check__label">{checkboxLabels.roleChange}</span><input type="checkbox" class="inline-check__box" data-field="ACEF_Form001_Role_Change__c" checked={checkboxValues.roleChange} onchange={handleInlineCheck} /></label>
+                        </div>
+                        <div class="span-3 field-slot">
+                            <label class="inline-check"><span class="inline-check__label">{checkboxLabels.roleRemove}</span><input type="checkbox" class="inline-check__box" data-field="ACEF_Form001_Role_Remove__c" checked={checkboxValues.roleRemove} onchange={handleInlineCheck} /></label>
+                        </div>
+                        <div class="span-3 field-slot">
+                            <label class="inline-check"><span class="inline-check__label">{checkboxLabels.roleRestore}</span><input type="checkbox" class="inline-check__box" data-field="ACEF_Form001_Role_Restore__c" checked={checkboxValues.roleRestore} onchange={handleInlineCheck} /></label>
+                        </div>
+                        <div class="span-12 field-slot">
+                            <lightning-input-field field-name="ACEF_Form001_Other_Details__c"></lightning-input-field>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>Applicant information</legend>
+                    <div class="grid">
+                        <div class="span-8 field-slot">
+                            <lightning-input-field field-name="ACEF_Form001_Applicant_Name__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-4 field-slot">
+                            <lightning-input-field variant="label-stacked" field-name="ACEF_Form001_ACE_User_ID__c"></lightning-input-field>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field field-name="ACEF_Organization__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field field-name="ACEF_Form001_Employee_Type__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field field-name="ACEF_Work_Phone__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field field-name="ACEF_Work_Email__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-12 field-slot">
+                            <lightning-input-field field-name="ACEF_Form001_Work_Street__c"></lightning-input-field>
+                        </div>
+                        <div class="span-5 field-slot">
+                            <lightning-input-field variant="label-stacked" field-name="ACEF_Form001_City__c"></lightning-input-field>
+                        </div>
+                        <div class="span-3 field-slot">
+                            <lightning-input-field variant="label-stacked" field-name="ACEF_Form001_State__c"></lightning-input-field>
+                        </div>
+                        <div class="span-4 field-slot">
+                            <lightning-input-field variant="label-stacked" field-name="ACEF_Form001_Zip__c"></lightning-input-field>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <c-ace-form001-role-grid record-id={recordId} source="systems" dept-agency={gridDeptAgency}></c-ace-form001-role-grid>
+
+                <fieldset class="form-section">
+                    <legend>Access need</legend>
+                    <div class="grid">
+                        <div class="span-12 field-slot">
+                            <lightning-input-field field-name="ACEF_Business_Justification__c" required></lightning-input-field>
+                        </div>
+                        <div class="span-6 field-slot">
+                            <lightning-input-field field-name="ACEF_Access_Area__c"></lightning-input-field>
+                        </div>
+                    </div>
+                </fieldset>
+            </template>
+
+            <div class="actions">
+                <button type="submit" class="slds-button slds-button_brand">{submitLabel}</button>
+            </div>
+        </lightning-record-edit-form>
+    </template>
+    <template lwc:else>
+        <p class="notice notice--info">Answer Yes to "Are you requesting ACE Portal access?" to open your PGA package, then return here.</p>
+    </template>
+</template>

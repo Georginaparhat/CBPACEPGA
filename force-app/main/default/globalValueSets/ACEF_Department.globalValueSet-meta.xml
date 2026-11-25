@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>DOW</fullName>
+        <default>false</default>
+        <label>Department of War (Department of Defense)</label>
+    </customValue>
+    <customValue>
+        <fullName>VA</fullName>
+        <default>false</default>
+        <label>Department of Veterans Affairs</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS</fullName>
+        <default>false</default>
+        <label>Department of Homeland Security</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ</fullName>
+        <default>false</default>
+        <label>Department of Justice</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY</fullName>
+        <default>false</default>
+        <label>Department of the Treasury</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA</fullName>
+        <default>false</default>
+        <label>Department of Agriculture</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS</fullName>
+        <default>false</default>
+        <label>Department of Health and Human Services</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI</fullName>
+        <default>false</default>
+        <label>Department of the Interior</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT</fullName>
+        <default>false</default>
+        <label>Department of Transportation</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC</fullName>
+        <default>false</default>
+        <label>Department of Commerce</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPT_C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Department C</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPT_B</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Department B</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPT_A</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Department A</label>
+    </customValue>
+    <description>CBPPGA-87. Government departments (top 10 cabinet departments by civilian headcount, OPM August 2026). Controls the Agency (ACEF_Dept_Agency) picklist on Role / Agency Mapping through a field dependency. Admins add, rename or retire values in Setup without a deploy. Placeholder values Department A to C are inactive.</description>
+    <masterLabel>ACEF Department</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

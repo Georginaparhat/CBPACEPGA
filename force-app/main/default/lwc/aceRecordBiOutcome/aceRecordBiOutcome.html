@@ -1,0 +1,34 @@
+<template>
+    <article class="slds-card bi">
+        <div class="slds-card__header">
+            <h2 class="slds-text-heading_small">Vetting: background investigation (BI)</h2>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template lwc:if={context}>
+                <p class="bi__meta">Form 7300: <strong>{context.requestName}</strong> ({context.requestStatus})</p>
+                <template lwc:if={context.message}>
+                    <p class="bi__note">{context.message}</p>
+                </template>
+                <template lwc:if={showForm}>
+                    <p class="bi__note">{nextStepText}</p>
+                    <lightning-radio-group label="BI outcome" options={options} value={outcome} onchange={handleOutcome} required></lightning-radio-group>
+                    <lightning-textarea label="Notes" value={notes} onchange={handleNotes} required={notesRequired}></lightning-textarea>
+                </template>
+            </template>
+            <template lwc:if={error}>
+                <p class="bi__error" role="alert">{error}</p>
+            </template>
+        </div>
+        <footer class="slds-card__footer bi__footer">
+            <template lwc:if={showForm}>
+                <lightning-button variant="brand" label="Record BI outcome" onclick={handleSave}></lightning-button>
+            </template>
+            <template lwc:if={showClose}>
+                <lightning-button class="slds-m-left_x-small" label="Close" onclick={handleCancel}></lightning-button>
+            </template>
+        </footer>
+    </article>
+</template>

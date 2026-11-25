@@ -1,0 +1,15 @@
+.signer-hub {
+    padding: 1rem;
+}
+.panel {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+}
+.warn {
+    color: #8a6116;
+}
+.error {
+    color: #c23934;
+}

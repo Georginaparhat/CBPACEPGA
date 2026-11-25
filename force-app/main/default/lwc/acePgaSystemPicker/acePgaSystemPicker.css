@@ -1,0 +1,41 @@
+.picker {
+  border: 0;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.picker__legend {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.picker__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.picker__field {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.picker__dependent {
+  margin: 0.75rem 0 0 1.5rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--slds-g-color-border-base-1, #c9c9c9);
+}
+
+.picker__loading {
+  position: relative;
+  min-height: 3rem;
+}
+
+.picker__error {
+  color: var(--slds-g-color-error-base-40, #ba0517);
+  margin-bottom: 0.5rem;
+}
+
+.picker__empty {
+  margin-top: 0.5rem;
+}

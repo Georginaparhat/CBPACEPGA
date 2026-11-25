@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>DOW_DON</fullName>
+        <default>false</default>
+        <label>Department of the Navy (DON)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DA</fullName>
+        <default>false</default>
+        <label>Department of the Army (DA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DAF</fullName>
+        <default>false</default>
+        <label>Department of the Air Force (DAF)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DHA</fullName>
+        <default>false</default>
+        <label>Defense Health Agency (DHA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DLA</fullName>
+        <default>false</default>
+        <label>Defense Logistics Agency (DLA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DODEA</fullName>
+        <default>false</default>
+        <label>Department of War Education Activity (DoDEA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DECA</fullName>
+        <default>false</default>
+        <label>Defense Commissary Agency (DeCA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DFAS</fullName>
+        <default>false</default>
+        <label>Defense Finance and Accounting Service (DFAS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DCMA</fullName>
+        <default>false</default>
+        <label>Defense Contract Management Agency (DCMA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOW_DISA</fullName>
+        <default>false</default>
+        <label>Defense Information Systems Agency (DISA)</label>
+    </customValue>
+    <customValue>
+        <fullName>VA_VHA</fullName>
+        <default>false</default>
+        <label>Veterans Health Administration (VHA)</label>
+    </customValue>
+    <customValue>
+        <fullName>VA_VBA</fullName>
+        <default>false</default>
+        <label>Veterans Benefits Administration (VBA)</label>
+    </customValue>
+    <customValue>
+        <fullName>VA_OIT</fullName>
+        <default>false</default>
+        <label>Office of Information and Technology (OIT)</label>
+    </customValue>
+    <customValue>
+        <fullName>VA_OALC</fullName>
+        <default>false</default>
+        <label>Office of Acquisition, Logistics, and Construction (OALC)</label>
+    </customValue>
+    <customValue>
+        <fullName>VA_NCA</fullName>
+        <default>false</default>
+        <label>National Cemetery Administration (NCA)</label>
+    </customValue>
+    <customValue>
+        <fullName>VA_BVA</fullName>
+        <default>false</default>
+        <label>Board of Veterans&apos; Appeals (BVA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_CBP</fullName>
+        <default>false</default>
+        <label>U.S. Customs and Border Protection (CBP)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_TSA</fullName>
+        <default>false</default>
+        <label>Transportation Security Administration (TSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_ICE</fullName>
+        <default>false</default>
+        <label>U.S. Immigration and Customs Enforcement (ICE)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_USCIS</fullName>
+        <default>false</default>
+        <label>U.S. Citizenship and Immigration Services (USCIS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_FEMA</fullName>
+        <default>false</default>
+        <label>Federal Emergency Management Agency (FEMA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_USSS</fullName>
+        <default>false</default>
+        <label>U.S. Secret Service (USSS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_USCG</fullName>
+        <default>false</default>
+        <label>U.S. Coast Guard (civilian workforce) (USCG)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_CISA</fullName>
+        <default>false</default>
+        <label>Cybersecurity and Infrastructure Security Agency (CISA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_FLETC</fullName>
+        <default>false</default>
+        <label>Federal Law Enforcement Training Centers (FLETC)</label>
+    </customValue>
+    <customValue>
+        <fullName>DHS_S_T</fullName>
+        <default>false</default>
+        <label>Science and Technology Directorate (S&amp;T)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_FBI</fullName>
+        <default>false</default>
+        <label>Federal Bureau of Investigation (FBI)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_BOP</fullName>
+        <default>false</default>
+        <label>Federal Bureau of Prisons (BOP)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_USAO_EOUSA</fullName>
+        <default>false</default>
+        <label>U.S. Attorneys&apos; Offices and Executive Office for U.S. Attorneys (USAO / EOUSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_DEA</fullName>
+        <default>false</default>
+        <label>Drug Enforcement Administration (DEA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_USMS</fullName>
+        <default>false</default>
+        <label>U.S. Marshals Service (USMS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_ATF</fullName>
+        <default>false</default>
+        <label>Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_EOIR</fullName>
+        <default>false</default>
+        <label>Executive Office for Immigration Review (EOIR)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_USTP</fullName>
+        <default>false</default>
+        <label>U.S. Trustee Program (USTP)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOJ_OJP</fullName>
+        <default>false</default>
+        <label>Office of Justice Programs (OJP)</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY_IRS</fullName>
+        <default>false</default>
+        <label>Internal Revenue Service (IRS)</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY_OCC</fullName>
+        <default>false</default>
+        <label>Office of the Comptroller of the Currency (OCC)</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY_FISCAL_SERVICE</fullName>
+        <default>false</default>
+        <label>Bureau of the Fiscal Service (Fiscal Service)</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY_BEP</fullName>
+        <default>false</default>
+        <label>Bureau of Engraving and Printing (BEP)</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY_MINT</fullName>
+        <default>false</default>
+        <label>United States Mint (Mint)</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY_TTB</fullName>
+        <default>false</default>
+        <label>Alcohol and Tobacco Tax and Trade Bureau (TTB)</label>
+    </customValue>
+    <customValue>
+        <fullName>TREASURY_FINCEN</fullName>
+        <default>false</default>
+        <label>Financial Crimes Enforcement Network (FinCEN)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_FS</fullName>
+        <default>false</default>
+        <label>Forest Service (FS)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_NRCS</fullName>
+        <default>false</default>
+        <label>Natural Resources Conservation Service (NRCS)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_FSIS</fullName>
+        <default>false</default>
+        <label>Food Safety and Inspection Service (FSIS)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_APHIS</fullName>
+        <default>false</default>
+        <label>Animal and Plant Health Inspection Service (APHIS)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_ARS</fullName>
+        <default>false</default>
+        <label>Agricultural Research Service (ARS)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_AMS</fullName>
+        <default>false</default>
+        <label>Agricultural Marketing Service (AMS)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_RD</fullName>
+        <default>false</default>
+        <label>Rural Development (RD)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_FSA</fullName>
+        <default>false</default>
+        <label>Farm Service Agency (FSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_FNS</fullName>
+        <default>false</default>
+        <label>Food and Nutrition Service (FNS)</label>
+    </customValue>
+    <customValue>
+        <fullName>USDA_FAS</fullName>
+        <default>false</default>
+        <label>Foreign Agricultural Service (FAS)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_NIH</fullName>
+        <default>false</default>
+        <label>National Institutes of Health (NIH)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_FDA</fullName>
+        <default>false</default>
+        <label>Food and Drug Administration (FDA)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_IHS</fullName>
+        <default>false</default>
+        <label>Indian Health Service (IHS)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_CDC</fullName>
+        <default>false</default>
+        <label>Centers for Disease Control and Prevention (CDC)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_CMS</fullName>
+        <default>false</default>
+        <label>Centers for Medicare &amp; Medicaid Services (CMS)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_ASPR</fullName>
+        <default>false</default>
+        <label>Administration for Strategic Preparedness and Response (ASPR)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_HRSA</fullName>
+        <default>false</default>
+        <label>Health Resources and Services Administration (HRSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_ACF</fullName>
+        <default>false</default>
+        <label>Administration for Children and Families (ACF)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_SAMHSA</fullName>
+        <default>false</default>
+        <label>Substance Abuse and Mental Health Services Administration (SAMHSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>HHS_ACL</fullName>
+        <default>false</default>
+        <label>Administration for Community Living (ACL)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_NPS</fullName>
+        <default>false</default>
+        <label>National Park Service (NPS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_FWS</fullName>
+        <default>false</default>
+        <label>U.S. Fish and Wildlife Service (FWS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_USGS</fullName>
+        <default>false</default>
+        <label>U.S. Geological Survey (USGS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_BLM</fullName>
+        <default>false</default>
+        <label>Bureau of Land Management (BLM)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_USBR</fullName>
+        <default>false</default>
+        <label>Bureau of Reclamation (USBR)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_BIE</fullName>
+        <default>false</default>
+        <label>Bureau of Indian Education (BIE)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_BIA</fullName>
+        <default>false</default>
+        <label>Indian Affairs (Bureau of Indian Affairs) (BIA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_MMA</fullName>
+        <default>false</default>
+        <label>Marine Minerals Administration (MMA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_BTFA</fullName>
+        <default>false</default>
+        <label>Bureau of Trust Funds Administration (BTFA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOI_OSMRE</fullName>
+        <default>false</default>
+        <label>Office of Surface Mining Reclamation and Enforcement (OSMRE)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_FAA</fullName>
+        <default>false</default>
+        <label>Federal Aviation Administration (FAA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_FHWA</fullName>
+        <default>false</default>
+        <label>Federal Highway Administration (FHWA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_FMCSA</fullName>
+        <default>false</default>
+        <label>Federal Motor Carrier Safety Administration (FMCSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_FRA</fullName>
+        <default>false</default>
+        <label>Federal Railroad Administration (FRA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_MARAD</fullName>
+        <default>false</default>
+        <label>Maritime Administration (MARAD)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_PHMSA</fullName>
+        <default>false</default>
+        <label>Pipeline and Hazardous Materials Safety Administration (PHMSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_NHTSA</fullName>
+        <default>false</default>
+        <label>National Highway Traffic Safety Administration (NHTSA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_FTA</fullName>
+        <default>false</default>
+        <label>Federal Transit Administration (FTA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOT_GLS</fullName>
+        <default>false</default>
+        <label>Great Lakes St. Lawrence Seaway Development Corporation (GLS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_USPTO</fullName>
+        <default>false</default>
+        <label>U.S. Patent and Trademark Office (USPTO)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_CENSUS</fullName>
+        <default>false</default>
+        <label>U.S. Census Bureau (Census)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_NOAA</fullName>
+        <default>false</default>
+        <label>National Oceanic and Atmospheric Administration (NOAA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_NIST</fullName>
+        <default>false</default>
+        <label>National Institute of Standards and Technology (NIST)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_ITA</fullName>
+        <default>false</default>
+        <label>International Trade Administration (ITA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_NTIA</fullName>
+        <default>false</default>
+        <label>National Telecommunications and Information Administration (NTIA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_BIS</fullName>
+        <default>false</default>
+        <label>Bureau of Industry and Security (BIS)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_BEA</fullName>
+        <default>false</default>
+        <label>Bureau of Economic Analysis (BEA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_EDA</fullName>
+        <default>false</default>
+        <label>Economic Development Administration (EDA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DOC_MBDA</fullName>
+        <default>false</default>
+        <label>Minority Business Development Agency (MBDA)</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPT_C_AGENCY_4</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Agency 4</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPT_B_AGENCY_3</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Agency 3</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPT_A_AGENCY_2</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Agency 2</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPT_A_AGENCY_1</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Agency 1</label>
+    </customValue>
+    <description>CBPPGA-87. Government agencies (up to 10 largest operating agencies per department, OPM August 2026; 91 agencies). On Role / Agency Mapping this picklist depends on Department (ACEF_Department). API names are DEPARTMENT_ACRONYM and stay stable when admins rename labels. Placeholder values Agency 1 to 4 are inactive.</description>
+    <masterLabel>ACEF Agency</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

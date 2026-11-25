@@ -1,0 +1,146 @@
+<template>
+    <div class="ace-portal workspaces">
+        <header class="workspaces__head">
+            <h1>ACE PGA workspaces</h1>
+            <p>Handoffs after the requester submits, in order: agency supervisor, CBP supervisor (when given), then security / PSO signers. After the security step, vetting (BI) and provisioning continue in Salesforce (ACE PGA Processing app).</p>
+        </header>
+
+        <nav class="lanes" aria-label="Workspaces">
+            <template for:each={lanes} for:item="lane">
+                <button key={lane.id} type="button" class={lane.className} data-id={lane.id} aria-pressed={lane.ariaPressed} onclick={handleLane}>
+                    {lane.label}
+                </button>
+            </template>
+        </nav>
+        <p class="lane__help">{lane.help}</p>
+
+        <template lwc:if={message}>
+            <p class={messageClass} role="status">{message}</p>
+        </template>
+
+        <div class="workspaces__body">
+            <section class="queue" aria-label="Waiting in this workspace">
+                <div class="queue__head">
+                    <h2>Waiting</h2>
+                    <button type="button" class="slds-button slds-button_neutral" onclick={handleRefresh}>Refresh</button>
+                </div>
+                <template lwc:if={loading}>
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </template>
+                <template lwc:if={hasItems}>
+                    <ul class="queue__list">
+                        <template for:each={rows} for:item="row">
+                            <li key={row.key}>
+                                <button type="button" class={row.className} data-key={row.key} onclick={handleSelect}>
+                                    <span class="queue__title">{row.title}</span>
+                                    <span class="queue__subtitle">{row.subtitle}</span>
+                                    <template lwc:if={row.showReadiness}>
+                                        <span class={row.readinessClass}>{row.readinessLabel}</span>
+                                    </template>
+                                </button>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+                <template lwc:else>
+                    <p class="queue__empty">Nothing is waiting here.</p>
+                </template>
+            </section>
+
+            <section class="detail" aria-label="Selected request">
+                <template lwc:if={selected}>
+                    <dl class="facts">
+                        <div><dt>Requester</dt><dd>{selected.requesterName} {selected.requesterEmail}</dd></div>
+                        <div><dt>Form 7300</dt><dd>{selected.confirmationNumber} ({selected.requestStatus})</dd></div>
+                        <div><dt>ACE Portal access</dt><dd>{accessText}</dd></div>
+                        <template lwc:if={selected.packageName}>
+                            <div><dt>PGA package</dt><dd>{selected.packageName} ({selected.packageStatus})</dd></div>
+                        </template>
+                        <template lwc:if={selected.agency}>
+                            <div><dt>Agency</dt><dd>{selected.agency}</dd></div>
+                        </template>
+                        <template lwc:if={selected.requestedSystems}>
+                            <div><dt>Requested systems</dt><dd>{selected.requestedSystems}</dd></div>
+                        </template>
+                        <template lwc:if={selected.biDisposition}>
+                            <div><dt>BI outcome</dt><dd>{selected.biDisposition}</dd></div>
+                        </template>
+                    </dl>
+
+                    <!-- Form 7300 sections 2, 3 and 4 -->
+                    <template lwc:if={is7300Review}>
+                        <h3 class="detail__title">{sectionTitle}</h3>
+                        <template lwc:if={selected.form7300Id}>
+                            <c-cbp-form7300-progress record-id={selected.form7300Id}></c-cbp-form7300-progress>
+                        </template>
+                        <lightning-input label="Type your full name to sign" value={signerName} onchange={handleSignerName} required></lightning-input>
+                        <lightning-textarea label="Notes (required to reject)" value={notes} onchange={handleNotes}></lightning-textarea>
+                        <div class="actions">
+                            <button type="button" class="slds-button slds-button_text-destructive" onclick={handleReject7300}>Reject</button>
+                            <button type="button" class="slds-button slds-button_brand" onclick={handleApprove7300}>Approve and sign</button>
+                        </div>
+                    </template>
+
+                    <!-- PGA access application (Form 001) supervisor sign-off: Kurt's form in supervisor mode -->
+                    <template lwc:if={isForm001Review}>
+                        <h3 class="detail__title">PGA access application: supervisor sign-off</h3>
+                        <c-ace-form-access2 record-id={selected.packageId} mode="supervisor"></c-ace-form-access2>
+                        <p class="detail__hint">After submitting, click Refresh to update the list.</p>
+                    </template>
+
+                    <!-- Vetting (OIT BI) -->
+                    <template lwc:if={isVetting}>
+                        <h3 class="detail__title">Vetting: background investigation (BI) outcome</h3>
+                        <lightning-radio-group label="BI outcome" options={biOptions} value={biOutcome} onchange={handleBiOutcome} required></lightning-radio-group>
+                        <lightning-textarea label="Notes" value={notes} onchange={handleNotes} required={notesRequired}></lightning-textarea>
+                        <div class="actions">
+                            <button type="button" class="slds-button slds-button_brand" onclick={handleRecordVetting}>Record BI outcome</button>
+                        </div>
+                    </template>
+
+                    <!-- Provisioning: readiness, route, complete -->
+                    <template lwc:if={isProvisioning}>
+                        <h3 class="detail__title">Provisioning</h3>
+                        <template lwc:if={showNotReady}>
+                            <div class="notice notice--waiting" role="status">
+                                <p><strong>Not ready for provisioning yet.</strong> Readiness can be approved once these are done:</p>
+                                <ul class="waiting-list">
+                                    <template for:each={notReadyItems} for:item="missing">
+                                        <li key={missing}>{missing}</li>
+                                    </template>
+                                </ul>
+                                <p>The supervisor signs the access application in the Agency supervisor workspace; the requester completes the rest in the portal.</p>
+                            </div>
+                        </template>
+                        <ul class="gates">
+                            <template for:each={gateLines} for:item="line">
+                                <li key={line.key} class={line.className}><span aria-hidden="true">{line.icon}</span> {line.label}</li>
+                            </template>
+                        </ul>
+                        <p>Readiness: <strong>{selected.readinessStatus}</strong> · Provisioning: <strong>{selected.provisioningStatus}</strong></p>
+                        <lightning-combobox label="Access area" options={accessAreaOptions} value={accessArea} onchange={handleAccessArea}></lightning-combobox>
+                        <lightning-textarea label="Notes" value={notes} onchange={handleNotes}></lightning-textarea>
+                        <div class="actions actions--steps">
+                            <button type="button" class="slds-button slds-button_outline-brand" onclick={handleApproveReadiness} disabled={readinessDisabled}>1. Approve readiness</button>
+                            <button type="button" class="slds-button slds-button_outline-brand" onclick={handleRoute} disabled={routeDisabled}>2. Route for provisioning</button>
+                            <button type="button" class="slds-button slds-button_brand" onclick={handleComplete} disabled={completeDisabled}>3. Mark provisioning complete</button>
+                        </div>
+                    </template>
+
+                    <!-- ACE Security verification -->
+                    <template lwc:if={isAceSecurity}>
+                        <h3 class="detail__title">ACE Security verification</h3>
+                        <p>Provisioning is complete. Verify that ACE Security access is in place; the request then closes.</p>
+                        <lightning-textarea label="Notes" value={notes} onchange={handleNotes}></lightning-textarea>
+                        <div class="actions">
+                            <button type="button" class="slds-button slds-button_brand" onclick={handleVerify}>Verify ACE Security</button>
+                        </div>
+                    </template>
+                </template>
+                <template lwc:else>
+                    <p class="queue__empty">Select a request on the left.</p>
+                </template>
+            </section>
+        </div>
+    </div>
+</template>

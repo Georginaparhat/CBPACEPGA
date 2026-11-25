@@ -1,0 +1,38 @@
+<template>
+    <div class="page">
+        <header class="banner">
+            <p class="eyebrow">U.S. Customs and Border Protection</p>
+            <h1>ACE Provisioning Homepage</h1>
+            <p class="lede">
+                ACE PGA application packages after the portal's security step: vetting, readiness, provisioning and
+                ACE Security verification. Select a tile to open that list.
+            </p>
+            <button type="button" class="metric__link refresh" onclick={handleRefresh}>Refresh counts</button>
+        </header>
+
+        <template lwc:if={error}>
+            <p class="err">{error}</p>
+        </template>
+        <template lwc:elseif={loading}>
+            <lightning-spinner alternative-text="Loading dashboard" size="medium"></lightning-spinner>
+        </template>
+        <template lwc:else>
+            <section class="metrics metrics--stages" aria-label="ACE application package metrics">
+                <article class="metric metric--highlight">
+                    <p class="metric__value">{totalPackages}</p>
+                    <p class="metric__label">ACE application packages (total)</p>
+                    <p class="metric__help">Every package you can access.</p>
+                    <button type="button" class="metric__link" data-object="ACEF_PGA_Application__c" data-list="XPGA_ACE_Application_Packages" onclick={handleOpenList}>View all packages</button>
+                </article>
+                <template for:each={tiles} for:item="tile">
+                    <article key={tile.key} class={tile.className}>
+                        <p class="metric__value">{tile.count}</p>
+                        <p class="metric__label">{tile.label}</p>
+                        <p class="metric__help">{tile.help}</p>
+                        <button type="button" class="metric__link" data-object={tile.objectApiName} data-list={tile.listViewName} onclick={handleOpenList}>View list</button>
+                    </article>
+                </template>
+            </section>
+        </template>
+    </div>
+</template>

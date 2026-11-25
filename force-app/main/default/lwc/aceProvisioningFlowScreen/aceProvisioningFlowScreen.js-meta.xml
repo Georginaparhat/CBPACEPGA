@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>ACE Provisioning Flow Screen</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Record Id" role="inputOnly"/>
+            <property name="actionKey" type="String" label="Action key" role="inputOnly"/>
+            <property name="decision" type="String" label="Decision" role="outputOnly"/>
+            <property name="disposition" type="String" label="Disposition" role="outputOnly"/>
+            <property name="accessArea" type="String" label="Access area" role="outputOnly"/>
+            <property name="notes" type="String" label="Notes" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

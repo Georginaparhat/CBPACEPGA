@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>CBPPGA-88. System teams the Provision action emails when that system was requested on the ACE PGA package (AES, GCMC). Change the recipients here; no deploy of code needed.</description>
+    <label>System Notification</label>
+    <pluralLabel>System Notifications</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACE_PGA_Processing_Header</fullName>
+    <fields>OwnerId</fields>
+    <fields>ACEF_Status__c</fields>
+    <fields>ACEF_Package_Status__c</fields>
+    <label>PGA processing header</label>
+</CompactLayout>

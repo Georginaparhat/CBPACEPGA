@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ACEF_CBP_Form_7300__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Form 7300 Test 2 (cbpForm73002) submission made from the ACE PGA Portal for this request. Set when the requester submits the form in the portal.</description>
+    <inlineHelpText>The CBP Form 7300 submitted in the ACE PGA Portal for this request.</inlineHelpText>
+    <label>CBP Form 7300</label>
+    <referenceTo>ACEF_CBP_Form_7300__c</referenceTo>
+    <relationshipLabel>Portal Form 7300 Requests</relationshipLabel>
+    <relationshipName>ACEF_Portal_7300_Requests</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

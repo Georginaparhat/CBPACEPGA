@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>ACE Provisioning homepage: metrics and My Assigned Application Packages.</description>
+    <flexiPage>ACEF_Provisioning_Home</flexiPage>
+    <label>ACE Provisioning Home</label>
+    <motif>Custom18: Form</motif>
+</CustomTab>

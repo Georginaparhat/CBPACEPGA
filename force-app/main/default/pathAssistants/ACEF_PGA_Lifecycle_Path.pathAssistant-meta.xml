@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>ACEF_PGA_Application__c</entityName>
+    <fieldName>ACEF_Status__c</fieldName>
+    <masterLabel>ACE PGA Lifecycle Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>ACEF_Provisioning_Complete_Date__c</fieldNames>
+        <fieldNames>ACEF_AES_Notified_At__c</fieldNames>
+        <fieldNames>ACEF_GCMC_Notified_At__c</fieldNames>
+        <fieldNames>ACEF_ACE_Security_Verified__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;ACE security review.&lt;/b&gt; The ACE Provisioning Team conducts the ACE security review, then clicks &lt;b&gt;Complete Security Review&lt;/b&gt;.&lt;/p&gt;</info>
+        <picklistValueName>ACE Security Review</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ACEF_ACE_Security_Verified__c</fieldNames>
+        <fieldNames>ACEF_ACE_Security_Verified_By__c</fieldNames>
+        <fieldNames>ACEF_ACE_Security_Verified_Date__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Complete.&lt;/b&gt; Provisioning and the ACE security review are done. No further action.&lt;/p&gt;</info>
+        <picklistValueName>Complete</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ACEF_7300_Clearance_Ready__c</fieldNames>
+        <fieldNames>ACEF_Form001_User_Complete__c</fieldNames>
+        <fieldNames>ACEF_Form001_Supervisor_Complete__c</fieldNames>
+        <fieldNames>ACEF_Form002_Complete__c</fieldNames>
+        <fieldNames>ACEF_NDA_Uploaded__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Package being completed upstream.&lt;/b&gt; The requester, supervisors and Agency Security Officer complete the package in the portal.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Checklist (full package):&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;CBP Form 7300 through Security / PSO (7300 Pending BI Determination)&lt;/li&gt;&lt;li&gt;ACE PGA Application signed by the applicant and the supervisor&lt;/li&gt;&lt;li&gt;Rules of Behavior complete&lt;/li&gt;&lt;li&gt;NDA uploaded&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;When all four are in, the package moves to Pending BI Review by itself, or click &lt;b&gt;Submit Request&lt;/b&gt;.&lt;/p&gt;</info>
+        <picklistValueName>Draft</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ACEF_Linked_7300_Name__c</fieldNames>
+        <fieldNames>ACEF_Linked_7300_BI_Disposition__c</fieldNames>
+        <fieldNames>ACEF_Submitted_At__c</fieldNames>
+        <fieldNames>ACEF_Submitted_By__c</fieldNames>
+        <fieldNames>ACEF_7300_Clearance_Ready__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Full package received by the ACE Provisioning Team&lt;/b&gt; (7300 Pending BI Determination).&lt;/p&gt;&lt;p&gt;&lt;b&gt;Verify:&lt;/b&gt; CBP Form 7300, ACE PGA Application, Rules of Behavior and NDA are all present (see the forms panel).&lt;/p&gt;&lt;p&gt;Record the BI adjudication with &lt;b&gt;Record BI Outcome&lt;/b&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Favorable&lt;/b&gt;: Ready for Provisioning&lt;/li&gt;&lt;li&gt;&lt;b&gt;Unfavorable&lt;/b&gt;: Unfavorable BI Determination (processing stops)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Pending BI Review</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ACEF_Provisioning_Complete_Date__c</fieldNames>
+        <fieldNames>ACEF_Provisioning_Complete_By__c</fieldNames>
+        <fieldNames>ACEF_AES_Notified_At__c</fieldNames>
+        <fieldNames>ACEF_GCMC_Notified_At__c</fieldNames>
+        <fieldNames>ACEF_Hash_Id__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Provisioned.&lt;/b&gt; The Provision action is done and any AES / GCMC emails were sent (see System Notification Log). The package moves on to ACE Security Review.&lt;/p&gt;</info>
+        <picklistValueName>Provisioned</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ACEF_Linked_7300_BI_Disposition__c</fieldNames>
+        <fieldNames>ACEF_Form001_Applicant_Name__c</fieldNames>
+        <fieldNames>ACEF_Work_Email__c</fieldNames>
+        <fieldNames>ACEF_Hash_Id__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;BI adjudication favorable.&lt;/b&gt; Provision the user in ACE, then click &lt;b&gt;Provision&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;If AES or GCMC access was requested, Provision emails those system teams automatically.&lt;/p&gt;</info>
+        <picklistValueName>Ready for Provisioning</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ACEF_Linked_7300_Name__c</fieldNames>
+        <fieldNames>ACEF_Linked_7300_BI_Disposition__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;Stopped: unfavorable BI determination.&lt;/b&gt; Processing does not continue for this package.&lt;/p&gt;</info>
+        <picklistValueName>Unfavorable BI Determination</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

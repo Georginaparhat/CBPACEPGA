@@ -1,0 +1,52 @@
+<template>
+    <fieldset class="form-section">
+        <legend>PGA user roles</legend>
+        <p class="help">Check Add, Remove, or Recertify for each role to provision.</p>
+        <template lwc:if={showSelectAgency}>
+            <p class="help" role="status">Select a department and agency above to see the systems.</p>
+        </template>
+        <template lwc:if={showNoSystems}>
+            <p class="help" role="status">No systems are available for this agency.</p>
+        </template>
+        <template lwc:if={systemsError}>
+            <p class="help" role="alert">{systemsError}</p>
+        </template>
+        <template lwc:if={showRows}>
+        <div class="role-grid" role="table" aria-label="PGA user roles">
+            <div class="role-grid__head" role="row">
+                <span role="columnheader">Add</span>
+                <span role="columnheader">Remove</span>
+                <span role="columnheader">Recertify</span>
+                <span role="columnheader">{columnLabel}</span>
+            </div>
+            <template for:each={rows} for:item="row">
+                <div key={row.key} class="role-grid__block">
+                    <div class="role-grid__row" role="row">
+                        <span role="cell">
+                            <input type="checkbox" data-role={row.value} data-column="add" checked={row.addChecked} onchange={handleToggle} />
+                        </span>
+                        <span role="cell">
+                            <input type="checkbox" data-role={row.value} data-column="remove" checked={row.removeChecked} onchange={handleToggle} />
+                        </span>
+                        <span role="cell">
+                            <input type="checkbox" data-role={row.value} data-column="recert" checked={row.recertChecked} onchange={handleToggle} />
+                        </span>
+                        <span class="role-grid__label" role="cell">{row.label}</span>
+                    </div>
+                    <template lwc:if={row.isUscg}>
+                        <div class="role-grid__port">
+                            <lightning-input label="PORT CODE" value={portCode} onchange={handlePortCode}></lightning-input>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+        </template>
+        <template lwc:if={isSystems}>
+            <!-- Port code: in the roles table it sits under USCG Ship Hold Analyst; the systems table has no role rows, so it is shown here. -->
+            <div class="role-grid__port">
+                <lightning-input label="PORT CODE" value={portCode} onchange={handlePortCode}></lightning-input>
+            </div>
+        </template>
+    </fieldset>
+</template>

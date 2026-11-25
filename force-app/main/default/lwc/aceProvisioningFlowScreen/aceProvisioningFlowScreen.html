@@ -1,0 +1,50 @@
+<template>
+    <template if:true={lifecycle}>
+        <div class={lifecycleNoteClass}>
+            <p>Status: <strong>{lifecycle.status}</strong></p>
+            <p class="slds-m-top_xx-small">{lifecycle.message}</p>
+        </div>
+        <template if:true={hasChecklist}>
+            <p class="slds-text-title_caps slds-m-bottom_x-small">Full package checklist</p>
+            <ul class="slds-m-bottom_small">
+                <template for:each={checklist} for:item="line">
+                    <li key={line.key} class="slds-m-bottom_xx-small">
+                        <lightning-icon icon-name={line.icon} variant={line.variant} size="x-small" alternative-text={line.state} class="slds-m-right_x-small"></lightning-icon>
+                        {line.label}
+                    </li>
+                </template>
+            </ul>
+        </template>
+        <template if:true={hasNotifyTeams}>
+            <p class="slds-text-title_caps slds-m-bottom_x-small">System teams to email</p>
+            <ul class="slds-list_dotted slds-m-bottom_small">
+                <template for:each={notifyTeams} for:item="team">
+                    <li key={team.key}>{team.label}</li>
+                </template>
+            </ul>
+        </template>
+    </template>
+    <template if:true={showGateWarning}>
+        <div class="slds-theme_warning slds-p-around_small slds-m-bottom_small">
+            Readiness requirements are not satisfied. Confirm the requirement checklist on the package record (ACC-015).
+        </div>
+    </template>
+    <template if:true={isReadiness}>
+        <lightning-combobox label="Decision" value={decision} options={decisionOptions} onchange={handleDecisionChange} required></lightning-combobox>
+    </template>
+    <template if:true={isBi}>
+        <lightning-combobox label="BI disposition" value={disposition} options={dispositionOptions} onchange={handleDispositionChange} required></lightning-combobox>
+    </template>
+    <template if:true={isRoute}>
+        <lightning-combobox label="Access area" value={accessArea} options={accessAreaOptions} onchange={handleAccessAreaChange} required></lightning-combobox>
+    </template>
+    <template if:true={showNotes}>
+        <lightning-textarea label="Notes" value={notes} onchange={handleNotesChange}></lightning-textarea>
+    </template>
+    <template if:true={errorMessage}>
+        <p class="slds-text-color_error slds-m-top_small">{errorMessage}</p>
+    </template>
+    <template if:true={successMessage}>
+        <p class="slds-text-color_success slds-m-top_small">{successMessage}</p>
+    </template>
+</template>

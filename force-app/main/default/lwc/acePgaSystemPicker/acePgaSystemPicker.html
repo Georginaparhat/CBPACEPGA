@@ -1,0 +1,78 @@
+<template>
+  <fieldset class="picker">
+    <legend class="picker__legend">Partner government agency</legend>
+    <template lwc:if={errorMessage}>
+      <p class="picker__error" role="alert">{errorMessage}</p>
+    </template>
+    <div class="picker__row">
+      <lightning-combobox
+        class="picker__field"
+        data-id="department"
+        name="department"
+        label="Department"
+        placeholder="Select a department"
+        options={departmentOptions}
+        value={department}
+        onchange={handleDepartmentChange}
+        disabled={disabled}
+        required
+      ></lightning-combobox>
+      <lightning-combobox
+        class="picker__field"
+        data-id="agency"
+        name="agency"
+        label="Agency"
+        placeholder="Select an agency"
+        options={agencyOptions}
+        value={deptAgency}
+        onchange={handleAgencyChange}
+        disabled={agencyDisabled}
+        required
+      ></lightning-combobox>
+    </div>
+  </fieldset>
+
+  <template lwc:if={loadingSystems}>
+    <div class="picker__loading">
+      <lightning-spinner
+        alternative-text="Loading available systems"
+        size="small"
+      ></lightning-spinner>
+    </div>
+  </template>
+
+  <template lwc:if={showSystems}>
+    <lightning-checkbox-group
+      data-id="systems"
+      name="systems"
+      label="Requested systems"
+      options={systemOptions}
+      value={selectedSystems}
+      onchange={handleSystemsChange}
+      disabled={disabled}
+      required
+    ></lightning-checkbox-group>
+    <template for:each={roleSelections} for:item="selection">
+      <div key={selection.system} class="picker__dependent">
+        <lightning-checkbox-group
+          data-id="roles"
+          data-system={selection.system}
+          name={selection.system}
+          label={selection.label}
+          options={selection.options}
+          value={selection.value}
+          onchange={handleRolesChange}
+          disabled={disabled}
+          required
+        ></lightning-checkbox-group>
+      </div>
+    </template>
+  </template>
+
+  <template lwc:if={showNoSystems}>
+    <p class="picker__empty" role="status" data-id="noSystems">
+      No systems are available for this agency. Contact the ACE PGA provisioning
+      team.
+    </p>
+  </template>
+</template>

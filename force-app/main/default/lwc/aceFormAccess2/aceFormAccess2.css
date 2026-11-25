@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+/* The portal theme (ACEF_Portal_Theme) defines span-4/5/6/12 only. This form also
+   uses span-3 (the four role-update checkboxes) and span-8 (applicant name). */
+.span-3 {
+    grid-column: span 3;
+}
+.span-8 {
+    grid-column: span 8;
+}
+@media (max-width: 640px) {
+    .span-3,
+    .span-8 {
+        grid-column: span 12;
+    }
+}
+
+/* Checkbox after its label on one line (Create new user, Update roles). */
+.inline-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2rem;
+    cursor: pointer;
+}
+
+.inline-check__label {
+    line-height: 1.25;
+}
+
+.inline-check__box {
+    flex: 0 0 auto;
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    cursor: pointer;
+}
