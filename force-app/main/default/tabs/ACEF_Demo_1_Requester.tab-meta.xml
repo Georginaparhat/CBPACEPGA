@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>ACE PGA process demo page.</description>
+    <flexiPage>ACEF_Demo_1_Requester</flexiPage>
+    <label>1 · Requester</label>
+    <motif>Custom18: Form</motif>
+</CustomTab>
